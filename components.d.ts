@@ -4,7 +4,6 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ICarbonAccount: typeof import('~icons/carbon/account')['default']
     ICarbonOverflowMenuHorizontal: typeof import('~icons/carbon/overflow-menu-horizontal')['default']
     MajorChart: typeof import('./src/components/MajorChart.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
@@ -18,10 +17,8 @@ declare module 'vue' {
     NLayoutContent: typeof import('naive-ui')['NLayoutContent']
     NLayoutHeader: typeof import('naive-ui')['NLayoutHeader']
     NPageHeader: typeof import('naive-ui')['NPageHeader']
-    NPageHeaderTitle: typeof import('naive-ui')['NPageHeaderTitle']
     NSkeleton: typeof import('naive-ui')['NSkeleton']
     NSpace: typeof import('naive-ui')['NSpace']
-    NStatistic: typeof import('naive-ui')['NStatistic']
     NTag: typeof import('naive-ui')['NTag']
   }
 }
