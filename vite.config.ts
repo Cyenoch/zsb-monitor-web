@@ -5,6 +5,8 @@ import Unocss from 'unocss/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { presetAttributify, presetUno } from 'unocss'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import legacy from '@vitejs/plugin-legacy';
+import { visualizer } from 'rollup-plugin-visualizer';
 import Icons from 'unplugin-icons/vite'
 
 
@@ -19,6 +21,15 @@ export default defineConfig(({ command, mode }) => {
 
   }
   return {
+    build: {
+      target: 'es2015', rollupOptions: {
+        output: {
+          manualChunks: {
+            chartjs: ['chart.js']
+          }
+        }
+      }
+    },
     plugins: [
       vue(),
       Components({
@@ -29,6 +40,30 @@ export default defineConfig(({ command, mode }) => {
           }),
         ]
       }),
+      legacy({
+        targets: ['ie >= 11'],
+        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+        renderLegacyChunks: true,
+        polyfills: [
+          'es.symbol',
+          'es.array.filter',
+          'es.promise',
+          'es.promise.finally',
+          'es/map',
+          'es/set',
+          'es.array.for-each',
+          'es.object.define-properties',
+          'es.object.define-property',
+          'es.object.get-own-property-descriptor',
+          'es.object.get-own-property-descriptors',
+          'es.object.keys',
+          'es.object.to-string',
+          'web.dom-collections.for-each',
+          'esnext.global-this',
+          'esnext.string.match-all'
+        ]
+      }),
+      visualizer(),
       Unocss({
         presets: [
           presetAttributify({ /* preset options */ }),

@@ -49,6 +49,40 @@ const { lineChartProps, lineChartRef } = useLineChart({
     labels: labels.value,
     datasets: datasets.value,
   },
+  options: {
+    responsive: true,
+    legend: {
+      display: true,
+    },
+    plugins: {
+      tooltip: {
+        mode: 'index',
+        intersect: false
+      },
+    },
+    hover: {
+      mode: 'index',
+      intersec: false
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: '时间轴'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: '报考人数'
+        },
+        min: 0,
+        ticks: {
+          stepSize: 10
+        },
+      },
+    },
+  },
 });
 
 watch([universityId], () => {

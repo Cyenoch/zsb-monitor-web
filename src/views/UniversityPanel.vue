@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useAxios } from '@vueuse/integrations/useAxios';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
-import { useLineChart, LineChart } from 'vue-chart-3';
 import { useRoute } from 'vue-router';
 import moment from 'moment';
 import client from '../client';
