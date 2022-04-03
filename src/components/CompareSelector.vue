@@ -18,7 +18,7 @@ watchEffect(() => {
 </script>
 <template>
   <div flex flex-row items-center flex-wrap>
-    <span>对比时间</span>
+    <span>目标对比时间</span>
     <span mx-4>
       <n-date-picker
         size="small"
@@ -28,7 +28,7 @@ watchEffect(() => {
         :is-date-disabled="disablePreviousDate"
       />
     </span>
-    <n-time :time="moment().valueOf()" :to="compareWithTime" type="relative" />
+    数据将与<n-time :to="moment().valueOf()" :time="compareWithTime" type="relative" />的数据进行比对
     <slot></slot>
   </div>
 </template>

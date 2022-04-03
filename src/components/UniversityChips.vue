@@ -63,10 +63,6 @@ onMounted(() => {
       <NGridItem span="24" p-2 :style="{ backgroundColor: themeVars.cardColor }">
         <CompareSelector v-model="compareWithTime">
           <span mr-4></span>
-          <div>
-            <span text-gray-500>数据最后更新时间：</span>
-            <n-time :to="timeTo" :time="time" type="relative" />
-          </div>
         </CompareSelector>
       </NGridItem>
 
@@ -78,6 +74,13 @@ onMounted(() => {
           />
         </NGridItem>
       </template>
+
+      <NGridItem span="24">
+        <div mt-2 text-gray-400>
+          <span text-gray-500>数据最后更新时间：</span>
+          <n-time :to="timeTo" :time="time" type="relative" />
+        </div>
+      </NGridItem>
     </NGrid>
   </n-spin>
 </template>

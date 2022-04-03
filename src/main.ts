@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import { Chart, registerables } from 'chart.js';
 import App from './App.vue'
 import 'uno.css'
-
+import 'moment/dist/locale/zh-cn'
 // 通用字体
 import 'vfonts/Roboto.css'
 // 等宽字体

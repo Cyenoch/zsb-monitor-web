@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ChangesTag: typeof import('./src/components/ChangesTag.vue')['default']
     CompareSelector: typeof import('./src/components/CompareSelector.vue')['default']
     ICarbonCaretDown: typeof import('~icons/carbon/caret-down')['default']
     ICarbonCaretUp: typeof import('~icons/carbon/caret-up')['default']
@@ -13,6 +14,7 @@ declare module 'vue' {
     MajorChips: typeof import('./src/components/MajorChips.vue')['default']
     MajorSelector: typeof import('./src/components/MajorSelector.vue')['default']
     MajorStatistic: typeof import('./src/components/MajorStatistic.vue')['default']
+    MajorTableSummary: typeof import('./src/components/MajorTableSummary.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NCol: typeof import('naive-ui')['NCol']
     NCollapse: typeof import('naive-ui')['NCollapse']
@@ -32,6 +34,7 @@ declare module 'vue' {
     NModal: typeof import('naive-ui')['NModal']
     NNumberAnimation: typeof import('naive-ui')['NNumberAnimation']
     NPageHeader: typeof import('naive-ui')['NPageHeader']
+    NResult: typeof import('naive-ui')['NResult']
     NRow: typeof import('naive-ui')['NRow']
     NSkeleton: typeof import('naive-ui')['NSkeleton']
     NSpace: typeof import('naive-ui')['NSpace']

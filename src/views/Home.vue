@@ -66,11 +66,26 @@ function handleSelect(key: string) {
           <li>
             <span text-gray-400 mr-4>2022-04-03 16:24</span>
             <ol>
-              <li>修复多个模块的若干问题，<s>提升系统稳定性</s></li>
+              <li>
+                修复多个模块的若干问题，
+                <s>提升系统稳定性</s>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span text-gray-400 mr-4>2022-04-03 18:15</span>
+            <ol>
+              <li>
+                修复多个模块的若干问题，
+                <s>提升系统稳定性</s>
+              </li>
+              <li>
+                <s>优化移动端表格显示效果</s>
+              </li>
             </ol>
           </li>
         </ul>
-        <footer>反馈bug|新的需求 QQ: 1759761439</footer>
+        <footer>反馈bug或是有新的意见或建议 QQ: 1759761439</footer>
       </div>
       <template #action>
         <NButton secondary type="primary" @click="showAbout = false">👌</NButton>
