@@ -8,10 +8,13 @@ import 'moment/dist/locale/zh-cn'
 import 'vfonts/Roboto.css'
 // 等宽字体
 import 'vfonts/FiraCode.css'
+import { createPinia } from 'pinia';
 
 Chart.register(...registerables);
 
 const app = createApp(App);
+
+app.use(createPinia());
 
 app.use(createRouter({
   history: createWebHashHistory(),

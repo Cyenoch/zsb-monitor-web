@@ -63,21 +63,16 @@ const columns = computed(() => [
   {
     title: "学校",
     key: "universityName",
-    width: 105,
-    fixed: undefined,
   }, {
     title: "专业",
     key: "majorName",
-    width: 130,
-    fixed: 'left',
   }, {
     title: "招生人数",
     key: "number",
-    width: 80,
+    width: 75,
   }, {
     title: "报考人数",
     key: "count",
-    width: 100,
     sorter() { return 1; }
   }, {
     title: "招录比例",
@@ -87,7 +82,6 @@ const columns = computed(() => [
   }, {
     title: `相比 ${moment(compareWithTime.value).locale('zh_cn').fromNow()}`,
     key: "change",
-    width: 150,
     render(row, index) {
       return h(ChangesTag, {
         value: Number(row.count) - Number(findWith(row).count),
@@ -150,6 +144,8 @@ watch([selectedMajorsName, selectedUniversitiesName, compareWithTime], load, { d
 onMounted(() => {
   load()
 })
+
+const host = import.meta.env.VITE_API_HOST
 </script>
 <template>
   <NGrid y-gap="18" cols="1">
@@ -174,24 +170,25 @@ onMounted(() => {
         description="服务器出错可能说明该雇更多程序员了"
       >
         <template #footer>
-          <n-button>散财消灾</n-button>
+          <n-button @click="() => execute()">散财消灾</n-button>
         </template>
       </n-result>
-      <NDataTable
-        v-else
-        size="small"
-        ref="dataTable"
-        :columns="columns"
-        :data="compareArr"
-        :loading="isLoading"
-        :row-key="(row) => `${row.universityName}-${row.majorName}`"
-        @update:sorter="handleUpdateSorter"
-      />
-      
-      <div mt-2 text-gray-400>
-        <span text-gray-500>数据最后更新时间：</span>
-        <n-time :to="timeTo" :time="time" type="relative" />
-      </div>
+      <template v-else>
+        <NDataTable
+          size="small"
+          ref="dataTable"
+          :columns="columns"
+          :data="compareArr"
+          :loading="isLoading"
+          :row-key="(row) => `${row.universityName}-${row.majorName}`"
+          @update:sorter="handleUpdateSorter"
+        />
+
+        <div mt-2 text-gray-400>
+          <span text-gray-500>数据最后更新时间：</span>
+          <n-time :to="timeTo" :time="time" type="relative" />
+        </div>
+      </template>
     </NGridItem>
   </NGrid>
 </template>

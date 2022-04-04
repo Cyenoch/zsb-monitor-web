@@ -10,6 +10,7 @@ specifiers:
   chart.js: ^3.7.1
   moment: ^2.29.1
   naive-ui: ^2.27.0
+  pinia: ^2.0.13
   rollup-plugin-visualizer: ^5.6.0
   typescript: ^4.5.4
   unocss: ^0.30.8
@@ -29,6 +30,7 @@ dependencies:
   chart.js: 3.7.1
   moment: 2.29.1
   naive-ui: 2.27.0_vue@3.2.31
+  pinia: 2.0.13_typescript@4.6.3+vue@3.2.31
   vfonts: 0.0.3
   vue: 3.2.31
   vue-chart-3: 3.1.8_chart.js@3.7.1+vue@3.2.31
@@ -1524,6 +1526,24 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
     dev: true
+
+  /pinia/2.0.13_typescript@4.6.3+vue@3.2.31:
+    resolution: {integrity: sha512-B7rSqm1xNpwcPMnqns8/gVBfbbi7lWTByzS6aPZ4JOXSJD4Y531rZHDCoYWBwLyHY/8hWnXljgiXp6rRyrofcw==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.1.4
+      typescript: 4.6.3
+      vue: 3.2.31
+      vue-demi: 0.12.5_vue@3.2.31
+    dev: false
 
   /postcss/8.4.12:
     resolution: {integrity: sha512-lg6eITwYe9v6Hr5CncVbK70SoioNQIq81nsaG86ev5hAidQvmOeETBqs7jm43K2F5/Ley3ytDtriImV6TpNiSg==}

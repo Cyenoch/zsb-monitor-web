@@ -4,8 +4,10 @@ import { onMounted, ref } from 'vue';
 import { useAxios } from '@vueuse/integrations/useAxios';
 import client from '../client';
 import Sidebar from '../components/Sidebar.vue';
+import { useMainStore } from '../stores/main';
 const router = useRouter()
 const showAbout = ref(false)
+const mainStore = useMainStore()
 const handleBack = () => {
   router.back();
 };
@@ -14,6 +16,9 @@ function handleSelect(key: string) {
   switch (key) {
     case "about":
       showAbout.value = !showAbout.value;
+      break
+    case "toggleWatermark":
+      mainStore.setShowWatermark(!mainStore.showWatermark);
       break
   }
 }
@@ -33,6 +38,9 @@ function handleSelect(key: string) {
             <n-space>
               <n-dropdown
                 :options="[{
+                  label: '开关水印',
+                  key: 'toggleWatermark'
+                }, {
                   label: '关于',
                   key: 'about'
                 }]"

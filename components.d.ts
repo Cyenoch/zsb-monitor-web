@@ -42,6 +42,7 @@ declare module 'vue' {
     NStatistic: typeof import('naive-ui')['NStatistic']
     NTag: typeof import('naive-ui')['NTag']
     NTime: typeof import('naive-ui')['NTime']
+    NWatermark: typeof import('naive-ui')['NWatermark']
     Sidebar: typeof import('./src/components/Sidebar.vue')['default']
     UniversityChips: typeof import('./src/components/UniversityChips.vue')['default']
     UniversitySelector: typeof import('./src/components/UniversitySelector.vue')['default']
