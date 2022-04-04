@@ -2,15 +2,12 @@
 import { useThemeVars } from 'naive-ui';
 import { computed, onMounted, reactive, ref, toRef, toRefs, watch, watchEffect } from 'vue';
 import moment from 'moment';
+import { disablePreviousDate } from '../consts';
 
 const props = defineProps(['modelValue'])
 const emits = defineEmits(['update:modelValue'])
 
 const compareWithTime = ref(props.modelValue ?? moment().subtract({ hours: 3 }).valueOf())
-
-const disablePreviousDate = (ts: number) => {
-  return ts > moment().subtract({ millisecond: 1000 }).valueOf() || ts < moment().subtract({ day: 1 }).valueOf()
-}
 
 watchEffect(() => {
   emits('update:modelValue', compareWithTime.value)
@@ -30,9 +27,8 @@ watchEffect(() => {
       />
     </span>
     <span>
-      数据将与
-      <n-time :to="moment().valueOf()" :time="compareWithTime" type="relative" />的数据进行比对
+      将比对<n-time :to="moment().valueOf()" :time="compareWithTime" type="relative" />的数据
     </span>
-    <slot></slot>
+    <slot flex-grow></slot>
   </div>
 </template>

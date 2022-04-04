@@ -48,6 +48,7 @@ function handleSelect(key: string) {
                 placement="bottom-start"
               >
                 <n-button :bordered="false" py-4>
+                  👋
                   <i-carbon-overflow-menu-horizontal text-xl />
                 </n-button>
               </n-dropdown>
@@ -82,6 +83,18 @@ function handleSelect(key: string) {
           </li>
           <li>
             <span text-gray-400 mr-4>2022-04-03 18:15</span>
+            <ol>
+              <li>
+                修复多个模块的若干问题，
+                <s>提升系统稳定性</s>
+              </li>
+              <li>
+                <s>优化移动端表格显示效果</s>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span text-gray-400 mr-4>2022-04-04 12:57</span>
             <ol>
               <li>
                 修复多个模块的若干问题，

@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script setup lang="ts">import { toRefs } from 'vue';
+
 const props = defineProps(['data'])
 
-const { data } = props;
+const { data } = toRefs(props);
 </script>
 <template>
   <NCard></NCard>

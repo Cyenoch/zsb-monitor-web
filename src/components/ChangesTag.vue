@@ -1,8 +1,9 @@
 <script setup lang="ts">import { useThemeVars } from 'naive-ui';
+import { toRefs } from 'vue';
 
 const props = defineProps(['value'])
 const themeVars = useThemeVars()
-const { value } = props;
+const { value } = toRefs(props);
 </script>
 <template>
   <div
