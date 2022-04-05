@@ -59,6 +59,11 @@ function handleSelect(key: string) {
     </NLayoutHeader>
     <NLayoutContent content-style="padding: 1rem" bordered>
       <main m-auto style="max-width: 1000px">
+        <n-alert
+          title="服务器被干烂了"
+          type="warning"
+        >服务器被打烂了，不知道是哪个没事做的干的，我又不赚钱，打我服务器干嘛。建了个群，有消息会在里面通知，有兴趣可以加下：<a href="https://jq.qq.com/?_wv=1027&k=VjUVBfWJ">811090826</a></n-alert>
+        <NDivider />
         <router-view></router-view>
       </main>
     </NLayoutContent>

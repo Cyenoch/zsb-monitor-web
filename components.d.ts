@@ -15,6 +15,7 @@ declare module 'vue' {
     MajorSelector: typeof import('./src/components/MajorSelector.vue')['default']
     MajorStatistic: typeof import('./src/components/MajorStatistic.vue')['default']
     MajorTableSummary: typeof import('./src/components/MajorTableSummary.vue')['default']
+    NAlert: typeof import('naive-ui')['NAlert']
     NButton: typeof import('naive-ui')['NButton']
     NCheckbox: typeof import('naive-ui')['NCheckbox']
     NCol: typeof import('naive-ui')['NCol']
