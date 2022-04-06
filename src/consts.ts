@@ -28,3 +28,7 @@ export const isPublicSchool = (school: string) => PublicSchool.includes(school)
 export const disablePreviousDate = (ts: number) => {
   return ts > moment().subtract({ millisecond: 1000 }).valueOf() || ts < moment('Fri, 01 Apr 2022 00:36:35 GMT').valueOf()
 }
+
+export const disabledDateRange = (ts: number) => {
+  return ts > moment().valueOf() || ts < moment().subtract({ day: 2 }).valueOf()
+}

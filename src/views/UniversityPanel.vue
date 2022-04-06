@@ -36,7 +36,7 @@ watch([currentSelectedUniversity], () => {
 
     <NGridItem v-for="major in majors">
       <h2>{{ major.majorName }}</h2>
-      <MajorChart :university-id="major.universityId" :major-id="major.majorId" />
+      <MajorChart :university-name="major.universityName" :major-name="major.majorName" />
     </NGridItem>
   </NGrid>
 </template>

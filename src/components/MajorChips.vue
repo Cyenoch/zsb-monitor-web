@@ -9,13 +9,14 @@ import ChangesTag from './ChangesTag.vue';
 import moment from 'moment';
 import { dataTableDark, useThemeVars } from 'naive-ui';
 import { TableColumns } from 'naive-ui/lib/data-table/src/interface';
-import MajorTableSummaryVue from './MajorTableSummary.vue';
-import UniversitySelectorNew from './UniversitySelectorNew.vue';
 import { useUniversityStore } from '../stores/university';
 import { storeToRefs } from 'pinia';
 import { sortBy } from 'lodash';
 import _ from 'lodash';
-import { disablePreviousDate } from '../consts';
+import { disablePreviousDate, isPublicSchool } from '../consts';
+import MajorTableSummaryVue from './MajorTableSummary.vue';
+import UniversitySelectorNew from './UniversitySelectorNew.vue';
+import MajorChartVue from './MajorChart.vue';
 
 const universityStore = useUniversityStore();
 const themeVars = useThemeVars()
@@ -23,7 +24,7 @@ const { selectedUniversities, selectedUniverityNames } = storeToRefs(universityS
 
 const autoReload = ref(false);
 const selectedMajorsName = ref<string[]>([]);
-const compareWithTime = ref(moment().subtract({ hours: 3 }).valueOf())
+const compareWithTime = ref(moment().subtract({ hours: 2 }).valueOf())
 const queryParams = ref(new URLSearchParams({
   with: moment(compareWithTime.value).toDate().toString(),
 }))
@@ -37,21 +38,26 @@ const compareArr = computed(() => data.value?.compare
 
   })))
 const withArr = computed(() => data.value?.with)
-
+const allConditionEmpty = computed(() => selectedUniverityNames.value.length == 0 && selectedMajorsName.value.length == 0);
 const timeTo = computed(() => moment.utc(compareArr.value?.[0].createdAt).valueOf());
 const time = computed(() => moment().valueOf())
 
 const columns = computed(() => [
-  // {
-  //   type: 'expand',
-  //   expandable: (rowData) => rowData.name !== 'Jim Green',
-  //   renderExpand: (rowData) => {
-  //     return `${rowData.universityName} is a good university.`
-  //   }
-  // }, 
+  {
+    type: 'expand',
+    expandable: (rowData) => rowData.name !== 'Jim Green',
+    renderExpand: (rowData) => {
+      return h(MajorChartVue as any, { universityName: rowData.universityName, majorName: rowData.majorName })
+    }
+  },
   {
     title: "学校",
     key: "universityName",
+    render(row, index) {
+      return h('span' as any, {
+        style: isPublicSchool(row.universityName as any) ? 'font-weight: bold' : ''
+      }, `${row.universityName}${isPublicSchool(row.universityName as any) ? '*' : ''}`);
+    }
   }, {
     title: "专业",
     key: "majorName",
@@ -94,7 +100,7 @@ const summary = (pageData: any) => {
   }
 }
 
-function load() {
+function load(force: boolean | undefined = false) {
   queryParams.value.set("with", moment(compareWithTime.value).toDate().toUTCString());
   queryParams.value.delete("university")
   queryParams.value.delete("major")
@@ -105,11 +111,15 @@ function load() {
     queryParams.value.append("major", element);
   })
   if (disablePreviousDate(compareWithTime.value)) return;
+  if (allConditionEmpty.value && !force) {
+    data.value = null;
+    return
+  }
   execute()
 }
-watchDebounced([selectedMajorsName, selectedUniverityNames, compareWithTime], load, { deep: true, debounce: 500 })
+watchDebounced([selectedMajorsName, selectedUniverityNames, compareWithTime], () => load(), { deep: true, debounce: 500 })
 useIntervalFn(() => {
-  if (autoReload.value) load()
+  if (autoReload.value) load(true)
 }, 1000 * 60 * 2)
 const host = import.meta.env.VITE_API_HOST
 </script>
@@ -126,14 +136,18 @@ const host = import.meta.env.VITE_API_HOST
       <CompareSelector v-model="compareWithTime">
         <div ml-4 flex-grow flex flex-row justify-end>
           <NCheckbox v-model:checked="autoReload">自动刷新(每2分钟)</NCheckbox>
-          <NButton @click="load" size="small">刷新</NButton>
+          <NButton @click="() => load(true)" size="small">刷新</NButton>
         </div>
       </CompareSelector>
     </NGridItem>
 
     <NGridItem>
+      <div v-if="!error && !isLoading && allConditionEmpty && compareArr == null" text-center>
+        <NButton type="success" @click="() => load(true)">点此处加载全部学校、全部专业的数据</NButton>
+        <NDivider />
+      </div>
       <n-result
-        v-if="error"
+        v-else-if="error"
         :status="'error'"
         :title="`${error.code ?? '000'} ${error.message}`"
         description="服务器出错可能说明该雇更多程序员了"
@@ -143,6 +157,7 @@ const host = import.meta.env.VITE_API_HOST
         </template>
       </n-result>
       <template v-else>
+        <span block text-xs text-gray-500 pb-4>* 学校名称字体加粗带星号(*)表示为公办院校</span>
         <NDataTable
           size="small"
           ref="dataTable"

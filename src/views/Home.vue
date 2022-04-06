@@ -20,6 +20,9 @@ function handleSelect(key: string) {
     case "toggleWatermark":
       mainStore.setShowWatermark(!mainStore.showWatermark);
       break
+    case "hello":
+      window.open("https://jq.qq.com/?_wv=1027&k=fyodZi6c");
+      break
   }
 }
 </script>
@@ -41,8 +44,11 @@ function handleSelect(key: string) {
                   label: '开关水印',
                   key: 'toggleWatermark'
                 }, {
-                  label: '关于',
+                  label: '关于&反馈&捐赠',
                   key: 'about'
+                }, {
+                  label: '你好，点我进群',
+                  key: 'hello',
                 }]"
                 @select="handleSelect"
                 placement="bottom-start"
@@ -59,11 +65,32 @@ function handleSelect(key: string) {
     </NLayoutHeader>
     <NLayoutContent content-style="padding: 1rem" bordered>
       <main m-auto style="max-width: 1000px">
+        <!-- <n-alert v-if="false" title="服务器被干烂了" closable type="warning">
+          服务器被打烂了，不知道是哪个没事做的干的，我又不赚钱，打我服务器干嘛。建了个群，有消息会在里面通知，有兴趣可以加下：
+          <a
+            href="https://jq.qq.com/?_wv=1027&k=fyodZi6c"
+          >130456682</a>
+        </n-alert>-->
         <n-alert
-          title="服务器被干烂了"
-          type="warning"
-        >服务器被打烂了，不知道是哪个没事做的干的，我又不赚钱，打我服务器干嘛。建了个群，有消息会在里面通知，有兴趣可以加下：<a href="https://jq.qq.com/?_wv=1027&k=fyodZi6c">130456682</a></n-alert>
-        <NDivider />
+          v-if="mainStore.settings.showInitialInfo || mainStore.settings.showInitialInfo == undefined"
+          @close="mainStore.settings.showInitialInfo = false"
+          closable
+          title="为美好的世界献上祝福"
+          type="success"
+        >
+          真心祝大家顺利上岸~包括我在内... 欢迎进群唠嗑:
+          <div>
+            一群：
+            <a href="https://jq.qq.com/?_wv=1027&k=VjUVBfWJ">811090826</a>
+          </div>
+          <div>
+            二群：
+            <a href="https://jq.qq.com/?_wv=1027&k=fyodZi6c">130456682</a>
+          </div>
+        </n-alert>
+        <NDivider
+          v-if="mainStore.settings.showInitialInfo || mainStore.settings.showInitialInfo == undefined"
+        />
         <router-view></router-view>
       </main>
     </NLayoutContent>
@@ -75,24 +102,24 @@ function handleSelect(key: string) {
       <div>
         <span>网站主要是给2022年专升本的同学报考院校提供帮助，非机构非盈利性质，切勿作其他用途！网站卡顿敬请谅解。</span>
         <a href="http://home.xxcheng.cn:29000/hbzsb/">友商</a>
-        <h4>更新日志:</h4>
+        <h5 my-1>
+          前端开源地址:
+          <a
+            href="https://github.com/Cyenoch/zsb-monitor-web"
+          >https://github.com/Cyenoch/zsb-monitor-web</a>
+        </h5>
+        <h4>前端更新日志:</h4>
         <ul>
           <li>
             <span text-gray-400 mr-4>2022-04-03 16:24</span>
             <ol>
-              <li>
-                修复多个模块的若干问题，
-                <s>提升系统稳定性</s>
-              </li>
+              <li>修复多个模块的若干问题，</li>
             </ol>
           </li>
           <li>
             <span text-gray-400 mr-4>2022-04-03 18:15</span>
             <ol>
-              <li>
-                修复多个模块的若干问题，
-                <s>提升系统稳定性</s>
-              </li>
+              <li>提升系统稳定性</li>
               <li>
                 <s>优化移动端表格显示效果</s>
               </li>
@@ -101,17 +128,29 @@ function handleSelect(key: string) {
           <li>
             <span text-gray-400 mr-4>2022-04-04 12:57</span>
             <ol>
-              <li>
-                修复多个模块的若干问题，
-                <s>提升系统稳定性</s>
-              </li>
+              <li>提升系统稳定性</li>
               <li>
                 <s>优化移动端表格显示效果</s>
               </li>
             </ol>
           </li>
+          <li>
+            <span text-gray-400 mr-4>2022-04-05 21:00</span>
+            <ol>
+              <li>细节优化</li>
+            </ol>
+          </li>
         </ul>
-        <footer>反馈bug或是有新的意见或建议 QQ: 1759761439</footer>
+        <footer>
+          <div>反馈bug或是有新的意见或建议 QQ: 3530224953 不接受不正当的商务合作、广告合作等，非盈利非机构</div>
+          <div>
+            如果您喜欢我的作品，有心赞助，可访问此处：
+            <a
+              href="https://afdian.net/@02dsk?tab=home"
+            >https://afdian.net/@02dsk?tab=home</a>您赞助的资金将会用于给服务器上蓝BUFF，优化访问体验。
+          </div>
+          <div>作者：花海逐樱</div>
+        </footer>
       </div>
       <template #action>
         <NButton secondary type="primary" @click="showAbout = false">👌</NButton>
