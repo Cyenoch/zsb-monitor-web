@@ -63,7 +63,7 @@ function handleSelect(key: string) {
         </template>
       </NPageHeader>
     </NLayoutHeader>
-    <NLayoutContent content-style="padding: 1rem" bordered>
+    <NLayoutContent content-style="padding: 1rem;min-height: 90vh" bordered>
       <main m-auto style="max-width: 1000px">
         <!-- <n-alert v-if="false" title="服务器被干烂了" closable type="warning">
           服务器被打烂了，不知道是哪个没事做的干的，我又不赚钱，打我服务器干嘛。建了个群，有消息会在里面通知，有兴趣可以加下：
@@ -94,6 +94,9 @@ function handleSelect(key: string) {
         <router-view></router-view>
       </main>
     </NLayoutContent>
+    <NLayoutFooter text-sm p-2 text-gray-500 text-right>
+      鄂ICP备2021019535号
+    </NLayoutFooter>
 
     <n-modal v-model:show="showAbout" preset="dialog" title="关于">
       <template #header>
@@ -119,7 +122,6 @@ function handleSelect(key: string) {
           <li>
             <span text-gray-400 mr-4>2022-04-03 18:15</span>
             <ol>
-              <li>提升系统稳定性</li>
               <li>
                 <s>优化移动端表格显示效果</s>
               </li>
@@ -128,7 +130,6 @@ function handleSelect(key: string) {
           <li>
             <span text-gray-400 mr-4>2022-04-04 12:57</span>
             <ol>
-              <li>提升系统稳定性</li>
               <li>
                 <s>优化移动端表格显示效果</s>
               </li>
@@ -138,6 +139,18 @@ function handleSelect(key: string) {
             <span text-gray-400 mr-4>2022-04-05 21:00</span>
             <ol>
               <li>细节优化</li>
+            </ol>
+          </li>
+          <li>
+            <span text-gray-400 mr-4>2022-04-07 11:00</span>
+            <ol>
+              <li>默认比对2022年4月7日早上7点的数据</li>
+            </ol>
+          </li>
+          <li>
+            <span text-gray-400 mr-4>2022-04-07 13:00</span>
+            <ol>
+              <li>修复排序卡死的问题</li>
             </ol>
           </li>
         </ul>

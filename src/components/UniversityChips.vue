@@ -8,6 +8,7 @@ import UniversityStatistic from './UniversityStatistic.vue';
 import UniversitySelector from './UniversitySelector.vue';
 import CompareSelector from './CompareSelector.vue';
 import { disablePreviousDate } from '../consts';
+import { useIntervalFn } from '@vueuse/core';
 
 const selectedUniversitiesName = ref<string[]>([]);
 const selectedUniversities = computed<any[]>(() => collages.value?.filter((c: any) => selectedUniversitiesName.value.includes(c.universityName)));
@@ -25,7 +26,10 @@ const collages = computed(() => data.value?.compare)
 const withCollages = computed(() => data.value?.with)
 
 const timeTo = computed(() => moment.utc(collages.value?.[0].createdAt).valueOf());
-const time = computed(() => moment().valueOf())
+const time = ref(moment().valueOf());
+useIntervalFn(() => {
+  time.value = moment().valueOf()
+}, 1000)
 
 const handleSelectChanged = (value: any) => {
   selectedUniversitiesName.value = value;

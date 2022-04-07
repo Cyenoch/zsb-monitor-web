@@ -17,14 +17,16 @@ import { disablePreviousDate, isPublicSchool } from '../consts';
 import MajorTableSummaryVue from './MajorTableSummary.vue';
 import UniversitySelectorNew from './UniversitySelectorNew.vue';
 import MajorChartVue from './MajorChart.vue';
+import { useFavorite } from '../stores/favorite';
 
+const favoriteStore = useFavorite();
 const universityStore = useUniversityStore();
 const themeVars = useThemeVars()
 const { selectedUniversities, selectedUniverityNames } = storeToRefs(universityStore);
 
 const autoReload = ref(false);
 const selectedMajorsName = ref<string[]>([]);
-const compareWithTime = ref(moment().subtract({ hours: 2 }).valueOf())
+const compareWithTime = ref(moment('2022-04-07 07:00:00.000').valueOf())
 const queryParams = ref(new URLSearchParams({
   with: moment(compareWithTime.value).toDate().toString(),
 }))
@@ -35,12 +37,15 @@ const compareArr = computed(() => data.value?.compare
     ...v,
     ratio: (v.number / v.count * 100).toFixed(2),
     ratioFmt: (v.number / v.count * 100).toFixed(2) + "%",
-
+    with: findWith(v)
   })))
 const withArr = computed(() => data.value?.with)
 const allConditionEmpty = computed(() => selectedUniverityNames.value.length == 0 && selectedMajorsName.value.length == 0);
 const timeTo = computed(() => moment.utc(compareArr.value?.[0].createdAt).valueOf());
-const time = computed(() => moment().valueOf())
+const time = ref(moment().valueOf());
+useIntervalFn(() => {
+  time.value = moment().valueOf()
+}, 1000)
 
 const columns = computed(() => [
   {
@@ -77,10 +82,10 @@ const columns = computed(() => [
   }, {
     title: `相比 ${moment(compareWithTime.value).locale('zh_cn').fromNow()}`,
     key: "change",
-    sorter(r1: any, r2: any) { return (Number(r1.count) - Number(findWith(r1).count)) - (Number(r2.count) - Number(findWith(r2).count)) },
-    render(row, index) {
+    sorter(r1: any, r2: any) { return (Number(r1?.count) - Number(r1.with?.count)) - (Number(r2?.count) - Number(r2.with?.count)) },
+    render(row: any, index) {
       return h(ChangesTag, {
-        value: Number(row.count) - Number(findWith(row).count),
+        value: Number(row.count) - Number(row.with?.count),
       })
     }
   }] as TableColumns);
@@ -98,6 +103,11 @@ const summary = (pageData: any) => {
       colSpan: 3
     }
   }
+}
+
+function selectFavorites() {
+  universityStore.handleSelectUniversity(favoriteStore.favorite.map((v) => v.university));
+  selectedMajorsName.value = favoriteStore.favorite.map((v) => v.major);
 }
 
 function load(force: boolean | undefined = false) {
@@ -134,9 +144,16 @@ const host = import.meta.env.VITE_API_HOST
 
     <NGridItem span="24" p-2 :style="{ backgroundColor: themeVars.cardColor }">
       <CompareSelector v-model="compareWithTime">
-        <div ml-4 flex-grow flex flex-row justify-end>
+        <div ml-4 flex-grow flex flex-row justify-end items-center>
+          <NDivider vertical />
           <NCheckbox v-model:checked="autoReload">自动刷新(每2分钟)</NCheckbox>
           <NButton @click="() => load(true)" size="small">刷新</NButton>
+          <NDivider vertical />
+          <NButton
+            v-if="favoriteStore.favorite.length > 0"
+            @click="selectFavorites"
+            size="small"
+          >选择我的收藏</NButton>
         </div>
       </CompareSelector>
     </NGridItem>
