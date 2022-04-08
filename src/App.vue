@@ -44,4 +44,7 @@ const mainStore = useMainStore();
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+a:visited {
+  color: rgb(122, 122, 122);
+}
 </style>

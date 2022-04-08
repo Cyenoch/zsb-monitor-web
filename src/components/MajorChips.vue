@@ -187,6 +187,7 @@ const host = import.meta.env.VITE_API_HOST
         <div mt-2 text-gray-400>
           <span text-gray-500>数据最后更新时间：</span>
           <n-time :time="timeTo" :to="time" type="relative" />
+          <span>升本报名已结束，数据已不再更新。</span>
         </div>
       </template>
     </NGridItem>

@@ -87,6 +87,7 @@ function handleSelect(key: string) {
             二群：
             <a href="https://jq.qq.com/?_wv=1027&k=fyodZi6c">130456682</a>
           </div>
+          <div text-red font-bold text-md>升本报名已结束，数据已不再更新！</div>
         </n-alert>
         <NDivider
           v-if="mainStore.settings.showInitialInfo || mainStore.settings.showInitialInfo == undefined"
